@@ -11,9 +11,10 @@ class List : public Widget{
 private:
     std::vector<std::string> DATA;
     bool FOCUSED;
-    int SELECTED, FIRSTSHOWN, HOVERED, LEN;
+    int SELECTED, FIRSTSHOWN, V_HOVERED, DISP_HOVERED, LEN;
+    Application * PARENT;
 public:
-    List(int x, int y, int sizex, int sizey, std::vector<std::string> data, int len);
+    List(Application * parent, int x, int y, int sizex, int sizey, std::vector<std::string> data, int len);
     virtual void draw();
     virtual void change(genv::event ev);
     virtual bool is_selected(int posx, int posy);

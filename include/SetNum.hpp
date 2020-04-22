@@ -9,8 +9,9 @@ private:
     int VALUE;
     int CHANGEBOX, MIN, MAX;
     bool FOCUSED;
+    Application * PARENT;
 public:
-    SetNum(int x, int y, int sizex, int sizey, int min, int max);
+    SetNum(Application * parent, int x, int y, int sizex, int sizey, int min, int max);
     virtual void change(genv::event ev);
     virtual void draw();
     virtual bool is_selected(int posx, int posy);

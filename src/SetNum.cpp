@@ -6,20 +6,39 @@
 using namespace genv;
 using namespace std;
 
-SetNum::SetNum(int x, int y, int sizex, int sizey, int min, int max):
-              Widget(x, y, sizex, sizey),
+SetNum::SetNum(Application * parent, int x, int y, int sizex, int sizey, int min, int max):
+              Widget(parent,x, y, sizex, sizey),
               MIN(min), MAX(max), VALUE(min), CHANGEBOX(sizey/2), FOCUSED(false){} 
 
  
 void SetNum::draw(){
     gout << move_to(X,Y) << color(77,166,255) << box(SIZEX-CHANGEBOX, SIZEY) 
          << move_to(X+2, Y+2) << color(255, 255, 255) << box(SIZEX-4, SIZEY-4);
-    gout << move_to(X + 4, Y + gout.cascent()+1) << color(0,0,0) << text(to_string(VALUE));
-    
+    if(abs(VALUE)<10){
+    gout << move_to(X + (SIZEX-CHANGEBOX)/2 -4 , Y + SIZEY/2 + gout.cascent()/2 - 2) 
+         << color(0,0,0) << text(to_string(VALUE));
+    }
+    else if(abs(VALUE)<100){
+    gout << move_to(X + (SIZEX-CHANGEBOX)/2 -10 , Y + SIZEY/2 + gout.cascent()/2 - 2) 
+         << color(0,0,0) << text(to_string(VALUE));
+    }
+    else if(abs(VALUE)<1000){
+    gout << move_to(X + (SIZEX-CHANGEBOX)/2 -16 , Y + SIZEY/2 + gout.cascent()/2 - 2) 
+         << color(0,0,0) << text(to_string(VALUE));
+    }
+    else if(abs(VALUE)<10000){
+    gout << move_to(X + (SIZEX-CHANGEBOX)/2 -22 , Y + SIZEY/2 + gout.cascent()/2 - 2) 
+         << color(0,0,0) << text(to_string(VALUE));
+    }
+    else{
+    gout << move_to(X +4 , Y + SIZEY/2 + gout.cascent()/2 - 2) 
+         << color(0,0,0) << text(to_string(VALUE));
+    }
     gout << move_to(X+SIZEX-CHANGEBOX-2, Y) << color(77,166,255) << box(CHANGEBOX,CHANGEBOX-1) 
-         << move_to(X+SIZEX-CHANGEBOX, Y+CHANGEBOX) << color(0,0,0) << text("+") 
+         << move_to(X+SIZEX-CHANGEBOX+CHANGEBOX/2 -5, Y+CHANGEBOX/2+gout.cascent()/2 - 2) 
+         << color(0,0,0) << text("+") 
          << move_to(X+SIZEX-CHANGEBOX-2, Y+CHANGEBOX) << color(77,166,255) << box(CHANGEBOX,CHANGEBOX) 
-         << move_to(X+SIZEX-CHANGEBOX, Y+CHANGEBOX*2-2) << color(0,0,0) <<  text("-");
+         << move_to(X+SIZEX-CHANGEBOX+CHANGEBOX/2 -5, Y+CHANGEBOX+CHANGEBOX/2+gout.cascent()/2 - 2) << color(0,0,0) <<  text("-");
 }
 
 void SetNum::change(event ev){
